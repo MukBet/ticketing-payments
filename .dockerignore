@@ -1,0 +1,12 @@
+node_modules
+build
+.git
+*.log
+*.md
+
+
+# Игнорировать тесты
+src/**/*.test.ts
+src/**/__test__/
+# setup файл для Jest
+src/test/setup.ts
