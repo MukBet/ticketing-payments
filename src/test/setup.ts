@@ -5,10 +5,12 @@ import { app } from '../app';
 import jwt from 'jsonwebtoken'
 
 declare global {
-  var signin: () => string[];
+  var signin: (id?: string) => string[];
 }
 
 jest.mock('../nats-wrapper');
+
+process.env.STRIPE_KEY = 'sk_test_51SvNgvRREArcDv6t9e7GBXG1ZzVZpmJQTn6nBy2P8sIqU6QnsKQ9s3pqJJBDUWQ3WPpgSBlBciN6bktGbeGQw3du00qR8GBRmw';
 
 let mongo: any;
 beforeAll(async () => {
@@ -38,13 +40,13 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = () => {
+global.signin = (id?: string) => {
   // Build a JWT payload. { id, email }
   // eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJalk1TkRnMU5UazRaVFJqWVRobVpERXdaalZpWTJKbE5TSXNJbVZ0WVdsc0lqb2lkR1Z6ZEVCMFpYTjBMblJsSWl3aWFXRjBJam94TnpZMk16UTRNVGcwZlEubUk1aDlrSXBQTHMtUW1IcVZab3JnRDVFY09YM05HZnA5MWc5T01QU2tfWSJ9
   // {"jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDg1NTk4ZTRjYThmZDEwZjViY2JlNSIsImVtYWlsIjoidGVzdEB0ZXN0LnRlIiwiaWF0IjoxNzY2MzQ4MTg0fQ.mI5h9kIpPLs-QmHqVZorgD5EcOX3NGfp91g9OMPSk_Y"}
 
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.te'
   };
 
