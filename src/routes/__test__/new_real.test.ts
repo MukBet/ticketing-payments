@@ -4,9 +4,10 @@ import mongoose from "mongoose";
 import { Order } from "../../models/order";
 import { natsWrapper } from "../../nats-wrapper";
 import { OrderStatus } from "@motway_ticketing/common";
-import { stripe } from '../../stripe';
+import { stripe } from '../../stripe'; // Я знаю что тест падает. Ибо он на делает реальные данные и его надо до настроить, читай коммент в начале ИТ метода нижн.
 import { Payment } from "../../models/payment";
 
+// Оставил падающий тест как показатель что не обьязательно для деплоя все тесті должні пройти успешно. Десты и деплой на прод это разное. Хотя выпавшие тесты могут не давать деплоится, к примеру.
 it('returns a 201 with valid inputs', async () => {
   // ЖИВОЙ тест с реальным Stripe API.
   // РАБОТАЕТ только если C:\Learning\microservices-with-node-js-and-react\ticketing\payments\src\__mocks__\stripe.ts файл не используется.
