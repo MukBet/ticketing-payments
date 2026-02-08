@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== 'test',//true, // for dev only; set to true in prod with HTTPS
+    secure: process.env.NODE_ENV === 'production' && process.env.USE_HTTPS === 'true',//true, // for dev only; set to true in prod with HTTPS
   })
 );
 app.use(currentUser);
